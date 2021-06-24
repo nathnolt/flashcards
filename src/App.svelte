@@ -1,30 +1,44 @@
 <script>
-	export let name;
+// 1. load other components
+
+import Create from './Create.svelte'
+import Home from './Home.svelte'
+
+let pageEl
+
+let currentPage
+
+// My Global State, passed through an 's' named prop
+const state = {
+	// 1. page related.
+	comps: {
+		Create,
+		Home
+	},
+	pageName: null,
+	pageSettings: {
+		Create: {
+			mode: 'new', // either 'new' or 'edit'
+		},
+	},
+	
+	// 2. data related
+	flashcardSets: [],
+	
+	// 3. functions
+	changePage(pageName) {
+		state.pageName = pageName
+		currentPage = state.comps[pageName]
+	},
+}
+
+state.pageName = 'Home'
+currentPage = state.comps[state.pageName]
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+<svelte:component s={state} this={currentPage}/>
 </main>
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
