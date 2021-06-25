@@ -9,6 +9,8 @@ This is a simple tool to make flashcards for yourself.
 Has an import and export tool to share flashcard sets from and to other devices.
 Has an import for CSV files.
 
+Online version at [https://nathnolt.com/tools/flashcards/](https://nathnolt.com/tools/flashcards/)
+
 ## Get started
 
 Install the dependencies...
