@@ -6,8 +6,13 @@ import { hglobal } from './global.js'
 
 
 export function storeAllSetsIntoBrowserStorage(state) {
-	storage_set('flashcardSets', state.flashcardSets).catch(function(err) {
-		state.storageErrors = err
+	return new Promise(function(resolve, reject) {
+		storage_set('flashcardSets', state.flashcardSets).then(function() {
+			resolve()
+		}).catch(function(err) {
+			state.storageErrors = err
+			resolve()
+		})
 	})
 }
 
@@ -36,5 +41,7 @@ function addExampleSet(state) {
 			{q: 'Which notes does a major C chord contain (no inversions)', a: 'C E G'}
 		],
 	}
+	
 	state.flashcardSets.push(exampleSet)
+	storeAllSetsIntoBrowserStorage(state)
 }

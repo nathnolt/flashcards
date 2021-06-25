@@ -40,18 +40,19 @@ function loadQueue() {
 }
 onMount(loadQueue)
 getAllSetsFromBrowserStorage(s, loadQueue)
+
 </script>
 
 
 
 <h1>Flashcards</h1>
-<p>
+<p class="plr">
 	This tool allows you to make flashcards. These are stored locally, using indexedDB. You can export them out and import them again to use them on your phone.
 </p>
 
 <h2>Your flashcards:</h2>
 
-<div bind:this={setsEl} class="flashcard-sets">
+<div bind:this={setsEl} class="flashcard-sets plr">
 {#each flashcardSets as flashcardSet, index}
 	<button on:click="{openSet}" data-index={index} class="flashcard-set">
 		<h3>{flashcardSet.name}</h3>
@@ -62,18 +63,20 @@ getAllSetsFromBrowserStorage(s, loadQueue)
 {/each}
 </div>
 
-<div class="buttons">
+<div class="buttons plr">
 	<button bind:this={createButtonEl} on:click="{createSet}">Create a flashcard set</button>
 </div>
 
 
 <style>
-.flashcard-set {
-	background: #eeeeee;
-	border: 0;
-	margin: .25rem;
-}
 .buttons {
 	margin-top: 1rem;
+}
+
+.flashcard-set {
+	margin-top: 1rem;
+}
+.flashcard-set + .flashcard-set {
+	margin-left: 1rem;
 }
 </style>

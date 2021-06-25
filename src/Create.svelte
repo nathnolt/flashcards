@@ -91,36 +91,35 @@ function cleanupSetContent() {
 
 <h1>Create</h1>
 
-<label><strong>Name: </strong><input bind:this={setNameEl} bind:value={set.name} placeholder="Music questions"></label>
+<div class="plr">
+	<label><strong>Name: </strong><input bind:this={setNameEl} bind:value={set.name} placeholder="Music questions"></label>
 
-<SetSettings settings={set.settings}/>
+	<SetSettings settings={set.settings}/>
 
-<div bind:this={cardsEl} class="cards">
-{#each set.questions as question, index}
-	<div class="card" data-index={index}>
-		<label class="question">
-			<strong>Question:</strong>
-			<input bind:value={question.q}>
-		</label>
-		<label class="answer">
-			<strong>Answer:</strong>
-			<input bind:value={question.a}>
-		</label>
-		<button on:click={deleteCard}>❌</button>
+	<div bind:this={cardsEl} class="cards">
+	{#each set.questions as question, index}
+		<div class="card" data-index={index}>
+			<label class="question">
+				<strong>Question:</strong>
+				<input bind:value={question.q}>
+			</label>
+			<label class="answer">
+				<strong>Answer:</strong>
+				<input bind:value={question.a}>
+			</label>
+			<button on:click={deleteCard}>❌</button>
+		</div>
+	{:else}
+		<p>No cards yet.</p>
+	{/each}
 	</div>
-{:else}
-	<p>No cards yet.</p>
-{/each}
-</div>
 
-<button on:click={createCard}>Add card</button>
-<button on:click={flashcardsDone}>Flashcards done</button>
+	<button on:click={createCard}>Add card</button>
+	<button on:click={flashcardsDone}>Flashcards done</button>
+</div>
 
 <style>
 .card {
 	margin: .5rem 0;
-}
-label {
-	margin:0 .5rem;
 }
 </style>

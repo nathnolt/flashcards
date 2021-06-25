@@ -46,6 +46,7 @@ function prepareQuestions() {
 
 let guessInputEl
 async function nextQuestion() {
+	guessInput = ''
 	questionNumber++
 	subMode = 'question'
 	if(questionNumber >= questionIndexes.length) {
@@ -95,8 +96,6 @@ function submitAnswer() {
 	}
 	scoreArr.push({i: curQuestionIndex, c: correct, ya: guessInput})
 	
-	guessInput = ''
-	
 	revealAnswer()
 }
 
@@ -119,56 +118,58 @@ function goHome() {
 
 <h1>Quiz</h1>
 
-{#if subMode == 'question'}
+<div class="plr">
+	{#if subMode == 'question'}
 
-	<p class="question">
-		{question.q}
-	</p>
-	<label>
-		<strong>Answer</strong>
-		<input bind:this={guessInputEl} bind:value={guessInput}>
-	</label>
+		<p class="question">
+			{question.q}
+		</p>
+		<label>
+			<strong>Answer</strong>
+			<input bind:this={guessInputEl} bind:value={guessInput}>
+		</label>
 
-	<button on:click={submitAnswer}>Submit</button>
-	
-{:else if subMode == 'reveal'}
-	
-	{#if correct}
-		<h2 class="correct">Yes :)</h2>
+		<button on:click={submitAnswer}>Submit</button>
+		
+	{:else if subMode == 'reveal'}
+		
+		{#if correct}
+			<h2 class="correct">Yes :)</h2>
+		{:else}
+			<h2 class="incorrect">No :(</h2>
+		{/if}
+		<p>{question.q}<p>
+		<p><strong>Correct answer: </strong> <span>{question.a}</span></p>
+		<p><strong>Your answer: </strong> <span>{guessInput}</span></p>
+		
+		<div class="mt">
+			<button bind:this={nextQuestionButton} on:click={nextQuestion}>Next Question</button>
+		</div>
+		
+	{:else if subMode == 'end'}
+
+		<h2>Result: {totalCorrect} / {questionIndexes.length} Correct</h2>
+		
+		<p>Breakdown</p>
+		
+		<ul class="breakdown">
+			{#each scoreArr as scoreItem}
+				<li class="{scoreItem.c ? 'correct' : 'incorrect'}">{(() => {
+						const question = set.questions[scoreItem.i]
+						const correctStr = scoreItem.c ? 'correct' : 'incorrect'
+						return `${question.q} = ${question.a}, your answer: "${scoreItem.ya}" = ${correctStr}`
+				})()}</li>
+			{/each}
+		</ul>
+		
+		<button on:click={goHome}>Home</button>
+		
 	{:else}
-		<h2 class="incorrect">No :(</h2>
+
+		<p>Something went wrong</p>
+		
 	{/if}
-	<p>{question.q}<p>
-	<p><strong>Correct answer: </strong> <span>{question.a}</span></p>
-	<p><strong>Your answer: </strong> <span>{guessInput}</span></p>
-	
-	<div class="mt">
-		<button bind:this={nextQuestionButton} on:click={nextQuestion}>Next Question</button>
-	</div>
-	
-{:else if subMode == 'end'}
-
-	<h2>Result: {totalCorrect} / {questionIndexes.length} Correct</h2>
-	
-	<p>Breakdown</p>
-	
-	<ul class="breakdown">
-		{#each scoreArr as scoreItem}
-			<li class="{scoreItem.c ? 'correct' : 'incorrect'}">{(() => {
-					const question = set.questions[scoreItem.i]
-					const correctStr = scoreItem.c ? 'correct' : 'incorrect'
-					return `${question.q} = ${question.a}, your answer: "${scoreItem.ya}" = ${correctStr}`
-			})()}</li>
-		{/each}
-	</ul>
-	
-	<button on:click={goHome}>Home</button>
-	
-{:else}
-
-	<p>Something went wrong</p>
-	
-{/if}
+</div>
 
 <style>
 

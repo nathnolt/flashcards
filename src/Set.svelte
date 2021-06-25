@@ -20,9 +20,8 @@ function editSet() {
 }
 
 function removeSet() {
-	s.flashcardSets.splice(s.curSetIndex)
-	storeAllSetsIntoBrowserStorage(s)
-	backHome()
+	s.flashcardSets.splice(s.curSetIndex, 1)
+	storeAllSetsIntoBrowserStorage(s).then(backHome)
 }
 
 function backHome() {
@@ -36,19 +35,30 @@ onMount(function setMounted() {
 </script>
 
 <h1>{set.name}</h1>
-<div><strong>questions:</strong> {set.questions.length}</div>
-
-<button on:click={editSet}>Edit set</button>
-<button on:click={removeSet}>Remove set</button>
-
-<div>
-	<h2>Quiz menu</h2>
+<div class="plr">
+	<div><strong>questions:</strong> {set.questions.length}</div>
 	
-	<h3>Quiz settings</h3>
-	<SetSettings settings={settingsClone}/>
-	
-	
-	<button bind:this={startButtonEl} on:click={startQuiz}>Start quiz</button>
+	<div class="buttons mt">
+		<button on:click={editSet}>Edit set</button>
+		<button on:click={removeSet}>Remove set</button>
+	</div>
 </div>
 
-<button on:click={backHome}>Home</button>
+<h2>Quiz menu</h2>
+
+<div class="plr">
+	<h3>Quiz settings</h3>
+	
+	<SetSettings settings={settingsClone}/>
+	
+	<div class="buttons">
+		<button class="mts" bind:this={startButtonEl} on:click={startQuiz}>Start quiz</button>
+		<button class="mts" on:click={backHome}>Home</button>
+	</div>
+</div>
+
+<style>
+.buttons button + button{
+	margin-left: .5rem;
+}
+</style>
