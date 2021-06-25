@@ -52,6 +52,86 @@ function deleteCard(e) {
 	set.questions = set.questions
 }
 
+let csvTextAreaEl
+let csvContent
+let showCSVImport = false
+async function showImportFromCSV() {
+	showCSVImport = true
+	await tick()
+	csvTextAreaEl.focus()
+}
+function hideImportFromCSV() {
+	showCSVImport = false
+}
+
+let csvImportError
+function importFromCSV() {
+	console.log(0)
+	var content2 = csvContent
+	const lines = csvContent.split('\n')
+	
+	console.log(1)
+	const regexPossibilities = {
+		tab: /\t+/,
+		comma: /\,+/,
+		semicolon: /\;+/,
+	}
+	console.log(2)
+	
+	let i
+	const lengths = {}
+	let found = false
+	// First go through the lines to check which regex is the correct one for splitting.
+	for(i = 0; i < lines.length; i++) {
+		const line = lines[i]
+		let key
+		for(key in regexPossibilities) {
+			const regex = regexPossibilities[key]
+			if(i == 0) { // yes we need i here.
+				lengths[key] = line.split(regex).length
+			} else {
+				const itemAmount = line.split(regex).length
+				if(lengths[key] != itemAmount || itemAmount == 1) {
+					delete regexPossibilities[key]
+				}
+				
+				if(Object.keys(regexPossibilities).length == 1) {
+					found = true
+					break
+				}
+			}
+			if(found == true) {
+				break
+			}
+		}
+	}
+	console.log(3)
+	
+	if(!found) {
+		csvImportError = 'No consistent splitting symbol could be found.'
+		return
+	}
+	console.log(4)
+	
+	// Get the result regex
+	let regex
+	let key
+	for(key in regexPossibilities) {
+		regex = regexPossibilities[key]
+	}
+	
+	// Loop through the input, split it out into an array and push each item into set.questions
+	for(i = 0; i < lines.length; i++) {
+		console.log(i)
+		const line = lines[i]
+		const arr = line.split(regex)
+		const question = {q: arr[0], a: arr[1]}
+		set.questions.push(question)
+	}
+	
+	set.questions = set.questions
+}
+
 let cardsEl
 async function focusLastQuestionInput() {
 	await tick()
@@ -103,23 +183,52 @@ function cleanupSetContent() {
 				<strong>Question:</strong>
 				<input bind:value={question.q} placeholder="What is 6 * 7">
 			</label>
-			<label class="answer">
+			<label class="answer mts">
 				<strong>Answer:</strong>
 				<input bind:value={question.a} placeholder="42">
 			</label>
-			<button on:click={deleteCard}>❌</button>
+			<button class="mts" on:click={deleteCard}>❌</button>
 		</div>
 	{:else}
 		<p>No cards yet.</p>
 	{/each}
 	</div>
 
-	<button on:click={createCard}>Add card</button>
-	<button on:click={flashcardsDone}>Set done</button>
+	<div class="buttons">
+		<button on:click={createCard}>Add card</button>
+		<button on:click={showImportFromCSV}>Import Cards from CSV data</button>
+		<button on:click={flashcardsDone}>Set done</button>
+	</div>
+	
+	{#if showCSVImport}
+		<div class="mt">
+			<textarea bind:this={csvTextAreaEl} cols="60" rows="10" bind:value={csvContent}></textarea>
+		</div>
+		<div class="buttons mts">
+			<button on:click={importFromCSV}>Import</button>
+			<button on:click={hideImportFromCSV}>Hide import menu</button>
+		</div>
+		{#if csvImportError}
+		<div class="mts">
+			<strong>{csvImportError}</strong>
+		</div>
+		{/if}
+	{/if}
+	
 </div>
+
 
 <style>
 .card {
 	margin: .5rem 0;
 }
+
+label {
+	display: inline-block;
+}
+
+.buttons button {
+	margin: 0 .25rem;
+}
+
 </style>

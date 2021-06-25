@@ -186,7 +186,7 @@ getAllSetsFromBrowserStorage(s, loadQueue)
 	</div>
 
 	{#if showExportImport}
-		<textarea class="mt" cols="80" rows="10" bind:this={setTextAreaEl} bind:value={setData}></textarea>
+		<textarea class="mt" cols="60" rows="10" bind:this={setTextAreaEl} bind:value={setData}></textarea>
 		{#if importError != undefined}
 			<div><strong>{importError}</strong></div>
 		{/if}
