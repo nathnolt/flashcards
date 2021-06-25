@@ -135,7 +135,7 @@ function goHome() {
 			<input bind:this={guessInputEl} bind:value={guessInput}>
 		</label>
 
-		<button on:click={submitAnswer}>Submit</button>
+		<button class="mt" on:click={submitAnswer}>Submit</button>
 		
 	{:else if subMode == 'reveal'}
 		
