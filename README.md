@@ -2,19 +2,12 @@
 
 ---
 
-# svelte app
+# flashcards
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+This is a simple tool to make flashcards for yourself.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
-
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
-
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
-
+Has an import and export tool to share flashcard sets from and to other devices.
+Has an import for CSV files.
 
 ## Get started
 

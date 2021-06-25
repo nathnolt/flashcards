@@ -162,7 +162,8 @@ getAllSetsFromBrowserStorage(s, loadQueue)
 
 <h1>Flashcards</h1>
 <p class="plr">
-	This tool allows you to make flashcards. These are stored locally, using indexedDB. You can export them out and import them again to use them on your phone.
+	This tool allows you to make flashcards. These are stored locally, using indexedDB. You can export and import again to use them on multiple devices.
+	You can also import from CSV data in the Create subpage.
 </p>
 
 <h2>Your flashcards:</h2>
