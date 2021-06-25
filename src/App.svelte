@@ -59,6 +59,10 @@ currentPage = state.comps[state.pageName]
 	<p>IndexedDB storage failed: {state.storageErrors}</p>
 {/if}
 <div class="pb"></div>
+<div class="plr">
+	<a href="https://github.com/nathnolt/flashcards/">Source Code</a>
+</div>
+<div class="pb"></div>
 </main>
 
 <style>
