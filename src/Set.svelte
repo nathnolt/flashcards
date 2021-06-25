@@ -1,0 +1,54 @@
+<script>
+// imports
+import {onMount} from 'svelte'
+import {storeAllSetsIntoBrowserStorage} from './functions.js'
+import SetSettings from './SetSettings.svelte'
+
+export let s
+const set = s.flashcardSets[s.curSetIndex]
+const settingsClone = JSON.parse(JSON.stringify(set.settings))
+
+function startQuiz() {
+	s.pageSettings.Quiz.settings = settingsClone
+	s.changePage('Quiz')
+}
+
+function editSet() {
+	s.pageSettings.Create.mode = 'edit'
+	s.pageSettings.Create.from = 'Set'
+	s.changePage('Create')
+}
+
+function removeSet() {
+	s.flashcardSets.splice(s.curSetIndex)
+	storeAllSetsIntoBrowserStorage(s)
+	backHome()
+}
+
+function backHome() {
+	s.changePage('Home')
+}
+
+let startButtonEl
+onMount(function setMounted() {
+	startButtonEl.focus()
+})
+</script>
+
+<h1>{set.name}</h1>
+<div><strong>questions:</strong> {set.questions.length}</div>
+
+<button on:click={editSet}>Edit set</button>
+<button on:click={removeSet}>Remove set</button>
+
+<div>
+	<h2>Quiz menu</h2>
+	
+	<h3>Quiz settings</h3>
+	<SetSettings settings={settingsClone}/>
+	
+	
+	<button bind:this={startButtonEl} on:click={startQuiz}>Start quiz</button>
+</div>
+
+<button on:click={backHome}>Home</button>
