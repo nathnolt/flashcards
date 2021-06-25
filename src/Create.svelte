@@ -92,7 +92,7 @@ function cleanupSetContent() {
 <h1>Create</h1>
 
 <div class="plr">
-	<label><strong>Name: </strong><input bind:this={setNameEl} bind:value={set.name} placeholder="Music questions"></label>
+	<label><strong>Name: </strong><input bind:this={setNameEl} bind:value={set.name} placeholder="Math Questions"></label>
 
 	<SetSettings settings={set.settings}/>
 
@@ -101,11 +101,11 @@ function cleanupSetContent() {
 		<div class="card" data-index={index}>
 			<label class="question">
 				<strong>Question:</strong>
-				<input bind:value={question.q}>
+				<input bind:value={question.q} placeholder="What is 6 * 7">
 			</label>
 			<label class="answer">
 				<strong>Answer:</strong>
-				<input bind:value={question.a}>
+				<input bind:value={question.a} placeholder="42">
 			</label>
 			<button on:click={deleteCard}>❌</button>
 		</div>
@@ -115,7 +115,7 @@ function cleanupSetContent() {
 	</div>
 
 	<button on:click={createCard}>Add card</button>
-	<button on:click={flashcardsDone}>Flashcards done</button>
+	<button on:click={flashcardsDone}>Set done</button>
 </div>
 
 <style>

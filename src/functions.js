@@ -29,7 +29,7 @@ export function getAllSetsFromBrowserStorage(state, cb) {
 
 function addExampleSet(state) {
 	const exampleSet = {
-		name: 'Music questions',
+		name: 'Example set',
 		settings: {
 			icase: true,
 			iwhitespace: true,

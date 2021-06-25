@@ -40,7 +40,6 @@ const state = {
 	
 	// 3. functions
 	changePage(pageName) {
-		console.log('changing page to ' + pageName)
 		state.pageName = pageName
 		currentPage = state.comps[pageName]
 	},
@@ -59,6 +58,7 @@ currentPage = state.comps[state.pageName]
 {#if state.storageErrors != null}
 	<p>IndexedDB storage failed: {state.storageErrors}</p>
 {/if}
+<div class="pb"></div>
 </main>
 
 <style>

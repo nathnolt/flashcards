@@ -55,12 +55,18 @@ async function nextQuestion() {
 		curQuestionIndex = questionIndexes[questionNumber]
 	}
 	await tick()
-	guessInputEl.focus()
+	
+	if(guessInputEl != null){
+		guessInputEl.focus()
+	}
 }
 
-
-function endQuiz() {
+let homeButtonEl
+async function endQuiz() {
 	subMode = 'end'
+	
+	await tick()
+	homeButtonEl.focus()
 }
 
 function submitAnswer() {
@@ -162,7 +168,7 @@ function goHome() {
 			{/each}
 		</ul>
 		
-		<button on:click={goHome}>Home</button>
+		<button bind:this={homeButtonEl} on:click={goHome}>Home</button>
 		
 	{:else}
 
