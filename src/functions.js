@@ -62,14 +62,9 @@ export function removeAllSets(e) {
 
 export function dialogClick(e) {
 	const target = e.target
-	const state = this
 	const dialogMainEl = target.closest('.dialog-main')
-	const dialogEl = target.closest('dialog')
-	const dialogName = dialogEl.dataset.name
 	if(dialogMainEl == null) {
-		// close the dialog
-		dialogEl.close()
-		this.dialog[dialogName].show = false
+		hideDialog.call(this, e)
 	}
 }
 
@@ -80,4 +75,5 @@ export function hideDialog(e) {
 	const dialogName = dialogEl.dataset.name
 	dialogEl.close()
 	state.dialog[dialogName].show = false
+	state.dialog.prevFocusEl.focus()
 }

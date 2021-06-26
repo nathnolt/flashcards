@@ -134,6 +134,7 @@ function hideExportImport() {
 async function showConfirmDialog() {
 	s.dialog.confirmRemoveAll.show = true
 	recompute('dialogConfirmRemoveAllShow')
+	s.dialog.prevFocusEl = document.activeElement
 	await tick()
 	s.dialog.confirmRemoveAll.el.showModal()
 }

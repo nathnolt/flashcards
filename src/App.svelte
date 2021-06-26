@@ -38,8 +38,8 @@ const state = {
 		confirmRemoveAll: {
 			el: null,
 			show: false,
-		}
-		
+		},
+		prevFocusEl: null,
 	},
 	
 	// 2. data related
