@@ -1,0 +1,16 @@
+{
+	"name": "FlashcardsTool",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#f0f0f0",
+	"description": "Simple learning tool.",
+	"icons": [
+		{
+			"src": "icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any maskable"
+		}
+	]
+}
