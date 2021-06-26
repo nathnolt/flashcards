@@ -204,15 +204,3 @@ getAllSetsFromBrowserStorage(s, loadQueue)
 		</div>
 	{/if}
 </div>
-
-<style>
-.flashcard-sets {
-	text-align: center;
-}
-.flashcard-set {
-	margin-top: 1rem;
-	margin-left: .5rem;
-	margin-right: .5rem;
-}
-
-</style>

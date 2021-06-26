@@ -90,7 +90,3 @@ const dialogClickB = dialogClick.bind(state)
 	</div>
 </div></dialog>
 {/if}
-
-
-<style>
-</style>

@@ -172,14 +172,3 @@ function goHome() {
 		
 	{/if}
 </div>
-
-<style>
-
-.correct {
-	background: #77ff77;
-}
-.incorrect {
-	background: #ff9999;
-}
-
-</style>

@@ -54,6 +54,3 @@ onMount(function setMounted() {
 		<button on:click={backHome}>Home</button>
 	</div>
 </div>
-
-<style>
-</style>

@@ -90,3 +90,29 @@ dialog .body {
 dialog::backdrop {
 	background: rgba(0,0,0,.25);
 }
+
+
+.card {
+	margin: .5rem 0;
+	background: #eeeeee;
+	padding: 0 .25rem;
+}
+.card * {
+	margin: .25rem 0;
+	display: inline-block;
+}
+
+.flashcard-sets {
+	text-align: center;
+}
+.flashcard-set {
+	margin-top: 1rem;
+	margin-left: .5rem;
+	margin-right: .5rem;
+}
+.correct {
+	background: #77ff77;
+}
+.incorrect {
+	background: #ff9999;
+}

@@ -213,20 +213,3 @@ function cleanupSetContent() {
 	{/if}
 	
 </div>
-
-
-<style>
-.card {
-	margin: .5rem 0;
-	background: #eeeeee;
-	padding: 0 .25rem;
-}
-.card * {
-	margin: .25rem 0;
-}
-
-label {
-	display: inline-block;
-}
-
-</style>
