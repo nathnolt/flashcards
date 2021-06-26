@@ -66,17 +66,17 @@ function hideImportFromCSV() {
 
 let csvImportError
 function importFromCSV() {
-	console.log(0)
-	var content2 = csvContent
+	csvImportError = ''
+	if(csvContent == undefined) {
+		return
+	}
 	const lines = csvContent.split('\n')
 	
-	console.log(1)
 	const regexPossibilities = {
 		tab: /\t+/,
 		comma: /\,+/,
 		semicolon: /\;+/,
 	}
-	console.log(2)
 	
 	let i
 	const lengths = {}
@@ -105,13 +105,11 @@ function importFromCSV() {
 			}
 		}
 	}
-	console.log(3)
 	
 	if(!found) {
 		csvImportError = 'No consistent splitting symbol could be found.'
 		return
 	}
-	console.log(4)
 	
 	// Get the result regex
 	let regex
@@ -122,7 +120,6 @@ function importFromCSV() {
 	
 	// Loop through the input, split it out into an array and push each item into set.questions
 	for(i = 0; i < lines.length; i++) {
-		console.log(i)
 		const line = lines[i]
 		const arr = line.split(regex)
 		const question = {q: arr[0], a: arr[1]}
