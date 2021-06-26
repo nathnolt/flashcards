@@ -144,9 +144,13 @@ function goHome() {
 		<p><strong>Correct answer: </strong> <span>{question.a}</span></p>
 		<p><strong>Your answer: </strong> <span>{guessInput}</span></p>
 		
-		<div class="mt">
-			<button bind:this={nextQuestionButton} on:click={nextQuestion}>Next Question</button>
-		</div>
+		<button class="mt" bind:this={nextQuestionButton} on:click={nextQuestion}>
+		{#if questionNumber == questionIndexes.length -1}
+			See result
+		{:else}
+			Next Question
+		{/if}
+		</button>
 		
 	{:else if subMode == 'end'}
 
@@ -164,11 +168,11 @@ function goHome() {
 			{/each}
 		</ul>
 		
-		<button bind:this={homeButtonEl} on:click={goHome}>Home</button>
-		
 	{:else}
 
 		<p>Something went wrong</p>
 		
 	{/if}
+	
+	<button class="mts" bind:this={homeButtonEl} on:click={goHome}>Home</button>
 </div>
