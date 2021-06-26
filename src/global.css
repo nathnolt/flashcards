@@ -7,7 +7,7 @@ html {
 }
 body {
 	margin: 0;
-	font-family:sans-serif;
+	font-family: sans-serif;
 }
 body, input, button {
 	font-size: 1rem;
@@ -67,7 +67,7 @@ input:focus {
 }
 
 button:active {
-	background: #444444;
+	background: #222;
 	color: white;
 }
 
@@ -115,4 +115,8 @@ dialog::backdrop {
 }
 .incorrect {
 	background: #ff9999;
+}
+
+.breakdown li {
+	margin: .25rem 0;
 }

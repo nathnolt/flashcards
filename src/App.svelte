@@ -1,7 +1,7 @@
 <script>
 import { get as storage_get, set as storage_set } from 'idb-keyval'
 
-import {removeAllSets, declare, dialogClick, hideDialog} from './functions.js'
+import {removeAllSets, declare, dialogClick, hideDialog, registerServiceWorker} from './functions.js'
 
 // 1. load other components
 import Create from './Create.svelte'
@@ -42,6 +42,8 @@ const state = {
 		prevFocusEl: null,
 	},
 	
+	showUpdateButton: false,
+	
 	// 2. data related
 	flashcardSets: [],
 	curSetIndex: -1,
@@ -52,6 +54,15 @@ const state = {
 		state.pageName = pageName
 		currentPage = state.comps[pageName]
 	},
+}
+
+registerServiceWorker(state)
+let showUpdateButton
+declare('showUpdateButton', function() {
+	showUpdateButton = state.showUpdateButton
+})
+function updateVersion() {
+	location.reload()
 }
 
 state.pageName = 'Home'
@@ -76,6 +87,10 @@ const dialogClickB = dialogClick.bind(state)
 <div class="pb"></div>
 <div class="plr">
 	<a href="https://github.com/nathnolt/flashcards/">Source Code</a>
+	
+	{#if showUpdateButton}
+		<button on:click={updateVersion}>Update to latest version</button>
+	{/if}
 </div>
 <div class="pb"></div>
 </main>

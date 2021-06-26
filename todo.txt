@@ -1,3 +1,0 @@
-- 1. Add pwa features
-    - Offline first support, since the app is fully offline anyways.
-- 2. I can inline the CSS file manually, which is faster than learning rollup, and figuring it out that way.

@@ -5,8 +5,3 @@ const app = new App({
 })
 
 export default app
-
-// Register service worker
-if(navigator.serviceWorker) {
-	navigator.serviceWorker.register('sw.js')
-}

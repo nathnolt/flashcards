@@ -1,7 +1,10 @@
+const curVersion = 'v1.0'
+
 self.addEventListener('install', e => {
-	console.log('sw installed')
+	// we can do this here.
+	self.skipWaiting()
 	e.waitUntil(
-		caches.open('v2')
+		caches.open(curVersion)
 		.then(cache => cache.addAll([
 			'index.html',
 			'build/global.css',
@@ -15,7 +18,17 @@ self.addEventListener('install', e => {
 })
 
 self.addEventListener('activate', e => {
-	console.log('sw activated')
+	const cachesToKeep = [curVersion]
+
+	e.waitUntil(
+	  caches.keys().then(function(keyList) {
+	    return Promise.all(keyList.map(function(key) {
+	      if (cachesToKeep.indexOf(key) === -1) {
+	        return caches.delete(key)
+	      }
+	    }))
+	  })
+	)
 })
 
 self.addEventListener('fetch', e => {

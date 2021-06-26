@@ -77,3 +77,26 @@ export function hideDialog(e) {
 	state.dialog[dialogName].show = false
 	state.dialog.prevFocusEl.focus()
 }
+
+
+export function registerServiceWorker(appState) {
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('sw.js')
+		.then(function (reg) {
+			
+			reg.addEventListener('updatefound', function () {
+				const installingWorker = reg.installing
+				// console.log('state: ' + installingWorker.state)
+				
+				installingWorker.onstatechange = function workerInstallStateChange() {
+					// console.log('state: ' + installingWorker.state)
+					if(installingWorker.state == 'activated') {
+						appState.showUpdateButton = true
+						recompute('showUpdateButton')
+					}
+				}
+				
+			})
+		})
+	}
+}
