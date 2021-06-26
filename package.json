@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "npm run css-build && rollup -c",
-    "dev": "npm run css-build && rollup -c -w",
     "start": "sirv public --no-clear",
-    "css-build": "csso ./scr/global.css -o ./public/global.css -s inline --watch",
+    
+    "svelte-build": "rollup -c",
+    "svelte-dev": "rollup -c -w",
+    
+    "css-build": "csso ./src/global.css -o ./public/build/global.css -s file",
+    "css-dev": "csso ./src/global.css -o ./public/build/global.css -s file --watch",
+    
+    "build": "concurrently \"npm:css-build\" \"npm:svelte-build\"",
+    "dev": "concurrently \"npm:css-dev\" \"npm:svelte-dev\""
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -20,6 +26,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "concurrently": "^6.2.0",
     "idb-keyval": "^5.0.6",
     "sirv-cli": "^1.0.0"
   }
