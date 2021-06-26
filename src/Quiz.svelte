@@ -30,10 +30,6 @@ let scoreArr = [
 	*/
 ]
 
-let kbdObj = {
-	enter: false,
-}
-
 $: question = set.questions[curQuestionIndex]
 
 // start program

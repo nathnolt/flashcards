@@ -1,8 +1,12 @@
 // application specific function stuff
 import { get as storage_get, set as storage_set } from 'idb-keyval'
 
-import { hglobal } from './global.js'
 
+// Svelte doesn't work well with updating DOM based on object stuff, which is what I need, so I use this instead to do it manually.
+// it's kind of like computed but with a manual way of updating, because svelte computed stuff suffers from the same fate.
+const reactive = {}
+export function declare(name, fn) {reactive[name] = fn}
+export function recompute(name, val) {reactive[name](val)}
 
 
 export function storeAllSetsIntoBrowserStorage(state) {
@@ -44,4 +48,36 @@ function addExampleSet(state) {
 	
 	state.flashcardSets.push(exampleSet)
 	storeAllSetsIntoBrowserStorage(state)
+}
+
+
+
+export function removeAllSets(e) {
+	const state = this
+	state.flashcardSets = []
+	storeAllSetsIntoBrowserStorage(state)
+	recompute('flashcardSets')
+	hideDialog.call(state, e)
+}
+
+export function dialogClick(e) {
+	const target = e.target
+	const state = this
+	const dialogMainEl = target.closest('.dialog-main')
+	const dialogEl = target.closest('dialog')
+	const dialogName = dialogEl.dataset.name
+	if(dialogMainEl == null) {
+		// close the dialog
+		dialogEl.close()
+		this.dialog[dialogName].show = false
+	}
+}
+
+export function hideDialog(e) {
+	const target = e.target
+	const state = this
+	const dialogEl = target.closest('dialog')
+	const dialogName = dialogEl.dataset.name
+	dialogEl.close()
+	state.dialog[dialogName].show = false
 }

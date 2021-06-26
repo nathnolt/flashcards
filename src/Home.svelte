@@ -1,6 +1,6 @@
 <script>
 import {onMount, tick} from 'svelte'
-import {getAllSetsFromBrowserStorage, storeAllSetsIntoBrowserStorage} from './functions.js'
+import {getAllSetsFromBrowserStorage, storeAllSetsIntoBrowserStorage, recompute, declare} from './functions.js'
 
 export let s
 const pageSettings = s.pageSettings[s.pageName]
@@ -17,6 +17,10 @@ function openSet(e) {
 }
 
 let flashcardSets = []
+declare('flashcardSets', function() {
+	flashcardSets = s.flashcardSets
+})
+
 
 let setTextAreaEl
 let setData
@@ -127,11 +131,13 @@ function hideExportImport() {
 	importError = null
 }
 
-function removeAllSets() {
-	s.flashcardSets = []
-	storeAllSetsIntoBrowserStorage(s)
-	flashcardSets = s.flashcardSets
+async function showConfirmDialog() {
+	s.dialog.confirmRemoveAll.show = true
+	recompute('dialogConfirmRemoveAllShow')
+	await tick()
+	s.dialog.confirmRemoveAll.el.showModal()
 }
+
 
 // Actually do things and Handle loading
 let setsEl
@@ -146,7 +152,7 @@ async function homeLoaded() {
 	}
 }
 
-var counter = 0
+let counter = 0
 function loadQueue() {
 	counter++
 	if(counter == 2) {
@@ -180,10 +186,10 @@ getAllSetsFromBrowserStorage(s, loadQueue)
 	{/each}
 	</div>
 
-	<div class="buttons">
-		<button bind:this={createButtonEl} on:click={createSet}>Create a flashcard set</button>
+	<div class="button-row">
+		<button bind:this={createButtonEl} on:click={createSet}>Create a flashcards set</button>
 		<button on:click={exportSets}>Export / Import sets</button>
-		<button on:click={removeAllSets}>Remove all sets</button>
+		<button on:click={showConfirmDialog}>Remove all sets</button>
 	</div>
 
 	{#if showExportImport}
@@ -191,7 +197,7 @@ getAllSetsFromBrowserStorage(s, loadQueue)
 		{#if importError != undefined}
 			<div><strong>{importError}</strong></div>
 		{/if}
-		<div class="buttons">
+		<div class="button-row">
 			<button on:click={importSets}>Import sets</button>
 			<button on:click={hideExportImport}>Hide Export / Import</button>
 		</div>
@@ -199,13 +205,6 @@ getAllSetsFromBrowserStorage(s, loadQueue)
 </div>
 
 <style>
-.buttons {
-	margin-top: .5rem;
-}
-.buttons button {
-	margin: 0.5rem .25rem;
-	margin-bottom: 0
-}
 .flashcard-sets {
 	text-align: center;
 }

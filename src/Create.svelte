@@ -165,14 +165,14 @@ function cleanupSetContent() {
 	}
 }
 
-
-
 </script>
 
 <h1>Create</h1>
 
 <div class="plr">
-	<label><strong>Name: </strong><input bind:this={setNameEl} bind:value={set.name} placeholder="Math Questions"></label>
+	<label class="block mb">
+		<strong>Name: </strong><input bind:this={setNameEl} bind:value={set.name} placeholder="Math Questions">
+	</label>
 
 	<SetSettings settings={set.settings}/>
 
@@ -183,18 +183,18 @@ function cleanupSetContent() {
 				<strong>Question:</strong>
 				<input bind:value={question.q} placeholder="What is 6 * 7">
 			</label>
-			<label class="answer mts">
+			<label class="answer">
 				<strong>Answer:</strong>
 				<input bind:value={question.a} placeholder="42">
 			</label>
-			<button class="mts" on:click={deleteCard}>❌</button>
+			<button on:click={deleteCard}>❌</button>
 		</div>
 	{:else}
 		<p>No cards yet.</p>
 	{/each}
 	</div>
 
-	<div class="buttons">
+	<div class="button-row">
 		<button on:click={createCard}>Add card</button>
 		<button on:click={showImportFromCSV}>Import Cards from CSV data</button>
 		<button on:click={flashcardsDone}>Set done</button>
@@ -204,7 +204,7 @@ function cleanupSetContent() {
 		<div class="mt">
 			<textarea bind:this={csvTextAreaEl} cols="60" rows="10" bind:value={csvContent}></textarea>
 		</div>
-		<div class="buttons mts">
+		<div class="button-row">
 			<button on:click={importFromCSV}>Import</button>
 			<button on:click={hideImportFromCSV}>Hide import menu</button>
 		</div>
@@ -221,14 +221,15 @@ function cleanupSetContent() {
 <style>
 .card {
 	margin: .5rem 0;
+	background: #eeeeee;
+	padding: 0 .25rem;
+}
+.card * {
+	margin: .25rem 0;
 }
 
 label {
 	display: inline-block;
-}
-
-.buttons button {
-	margin: 0 .25rem;
 }
 
 </style>

@@ -38,7 +38,7 @@ onMount(function setMounted() {
 <div class="plr">
 	<div><strong>questions:</strong> {set.questions.length}</div>
 	
-	<div class="buttons mt">
+	<div class="button-row">
 		<button on:click={editSet}>Edit set</button>
 		<button on:click={removeSet}>Remove set</button>
 	</div>
@@ -47,18 +47,13 @@ onMount(function setMounted() {
 <h2>Quiz menu</h2>
 
 <div class="plr">
-	<h3>Quiz settings</h3>
-	
 	<SetSettings settings={settingsClone}/>
 	
-	<div class="buttons">
-		<button class="mts" bind:this={startButtonEl} on:click={startQuiz}>Start quiz</button>
-		<button class="mts" on:click={backHome}>Home</button>
+	<div class="button-row">
+		<button bind:this={startButtonEl} on:click={startQuiz}>Start quiz</button>
+		<button on:click={backHome}>Home</button>
 	</div>
 </div>
 
 <style>
-.buttons button + button{
-	margin-left: .5rem;
-}
 </style>
