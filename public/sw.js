@@ -1,6 +1,7 @@
 self.addEventListener('install', e => {
+	console.log('sw installed')
 	e.waitUntil(
-		caches.open('v1')
+		caches.open('v2')
 		.then(cache => cache.addAll([
 			'index.html',
 			'build/global.css',
@@ -11,6 +12,10 @@ self.addEventListener('install', e => {
 			'apple-touch-icon.png'
 		]))
 	)
+})
+
+self.addEventListener('activate', e => {
+	console.log('sw activated')
 })
 
 self.addEventListener('fetch', e => {
