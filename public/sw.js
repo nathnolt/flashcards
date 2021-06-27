@@ -1,4 +1,4 @@
-const curVersion = 'v1.0'
+const curVersion = 'v1.5'
 
 self.addEventListener('install', e => {
 	// we can do this here.
