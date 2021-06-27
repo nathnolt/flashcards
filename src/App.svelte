@@ -86,10 +86,10 @@ const dialogClickB = dialogClick.bind(state)
 {/if}
 <div class="pb"></div>
 <div class="plr">
-	<a href="https://github.com/nathnolt/flashcards/">Source Code</a>
+	<a href="https://github.com/nathnolt/flashcards/" target="_blank" rel="noopener">Source Code</a>
 	
 	{#if showUpdateButton}
-		<button on:click={updateVersion}>Update to latest version</button>
+		<button class="mts" on:click={updateVersion}>Update to latest version</button>
 	{/if}
 </div>
 <div class="pb"></div>
